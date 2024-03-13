@@ -1,0 +1,12 @@
+.DS_Store
+**/.vscode/
+**/bin/
+**/log/
+**/logs/
+
+**/conf.yml
+**/log4go.xml
+.idea/
+
+runtime/*
+config.yaml*
