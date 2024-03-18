@@ -19,7 +19,6 @@ func (oi *OSetIterator) HasNext() bool {
 
 func (oi *OSetIterator) Next() {
 	if oi.HasNext() {
-		k := oi.s.index[oi.index]
 		//如果还没访问到最后一个链
 		if oi.index < (len(oi.s.index) - 1) {
 			//没访问到最后一个元素
@@ -29,20 +28,20 @@ func (oi *OSetIterator) Next() {
 				oi.index++
 				oi.sortIndex = 0
 			}
-		} else {
-
+		} else if oi.index == (len(oi.s.index) - 1) {
+			oi.sortIndex++
 		}
-
 	}
 }
 
 func (oi *OSetIterator) Item() any {
 	k := oi.s.index[oi.index]
-	items := make([]any, 0, len(oi.s.items[k]))
-	for v := range oi.s.items[k] {
-		items = append(items, v)
+	for item, idx := range oi.s.items[k] {
+		if idx == oi.sortIndex {
+			return item
+		}
 	}
-	return items
+	return nil
 }
 
 func (oi *OSetIterator) Reset() {
